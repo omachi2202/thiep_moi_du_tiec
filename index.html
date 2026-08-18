@@ -43,12 +43,14 @@
     </script>
 
     <style>
-        /* Custom Background Overlay with Sapa Backdrop */
+        /* Single enlarged Petrolimex logo backdrop */
         .sapa-bg-overlay {
-            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.85), rgba(241, 245, 249, 0.92)),
-                url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+            background-color: #f8fafc;
+            background-image: linear-gradient(rgba(248, 250, 252, 0.88), rgba(241, 245, 249, 0.92)),
+                url('thiep_moi_du_tiec/image/logo-petrolimex.png');
+            background-size: auto, min(88vw, 900px);
+            background-position: center, center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
         }
 
@@ -58,6 +60,20 @@
             backdrop-filter: blur(16px);
             border: 2px solid rgba(197, 155, 39, 0.4);
             box-shadow: 0 20px 50px rgba(0, 51, 102, 0.12);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('thiep_moi_du_tiec/image/logo-petrolimex.png') center 18% / min(72%, 620px) auto no-repeat;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .glass-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         /* Vertical Timeline Line Styling */
@@ -77,6 +93,18 @@
                 left: 23px;
             }
         }
+
+        .itinerary-slide {
+            display: none;
+        }
+
+        .itinerary-slide.is-active {
+            display: block;
+        }
+
+        .legacy-itinerary {
+            display: none;
+        }
     </style>
 </head>
 
@@ -86,18 +114,7 @@
     <!-- HEADER / NAVIGATION -->
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-petro-gold/30 shadow-sm">
         <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div
-                    class="w-10 h-10 rounded-full bg-petro-orange flex items-center justify-center font-bold text-white text-xl shadow-md border border-white shrink-0">
-                    P
-                </div>
-                <div>
-                    <span
-                        class="block text-petro-blue font-extrabold text-sm sm:text-base tracking-wide leading-none">PETROLIMEX</span>
-                    <span class="text-petro-orange text-[11px] sm:text-xs font-bold tracking-wider uppercase">Chi Nhánh
-                        Bắc Tây Ninh</span>
-                </div>
-            </div>
+            <span class="text-petro-blue font-extrabold text-sm sm:text-base tracking-wide">THƯ MỜI</span>
 
             <!-- Navigation Links -->
             <nav class="hidden sm:flex space-x-6 text-xs sm:text-sm font-bold text-slate-700">
@@ -131,13 +148,8 @@
 
             <!-- HEADER SECTION INSIDE INVITATION -->
             <div class="text-center pb-8 border-b border-petro-gold/30">
-                <div
-                    class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-petro-blue to-blue-600 p-1 flex items-center justify-center shadow-lg">
-                    <div
-                        class="w-full h-full bg-white rounded-full flex items-center justify-center border-2 border-petro-gold">
-                        <i class="fa-solid fa-award text-3xl text-petro-orange"></i>
-                    </div>
-                </div>
+                <img src="thiep_moi_du_tiec/image/petrolimex-icon.png" alt="Biểu tượng Petrolimex"
+                    class="w-16 h-16 sm:w-20 sm:h-20 object-contain mx-auto mb-3">
 
                 <span
                     class="inline-block px-4 py-1.5 bg-amber-100/90 border border-petro-gold/60 rounded-full text-petro-darkBlue text-xs font-extrabold uppercase tracking-widest shadow-sm mb-3">
@@ -189,33 +201,7 @@
                     </p>
                 </div>
 
-                <!-- Trip Highlights Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6">
-                    <div
-                        class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-petro-orange transition-all">
-                        <div class="text-petro-orange text-2xl mb-1"><i class="fa-solid fa-clock"></i></div>
-                        <div class="text-lg sm:text-xl font-extrabold text-petro-blue">04 Ngày</div>
-                        <div class="text-xs text-slate-500 font-semibold">03 Đêm Thưởng Ngoạn</div>
-                    </div>
-                    <div
-                        class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-petro-orange transition-all">
-                        <div class="text-petro-gold text-2xl mb-1"><i class="fa-solid fa-mountain-sun"></i></div>
-                        <div class="text-lg sm:text-xl font-extrabold text-petro-blue">3.143 m</div>
-                        <div class="text-xs text-slate-500 font-semibold">Đỉnh Núi Fansipan</div>
-                    </div>
-                    <div
-                        class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-petro-orange transition-all">
-                        <div class="text-petro-blue text-2xl mb-1"><i class="fa-solid fa-bus"></i></div>
-                        <div class="text-lg sm:text-xl font-extrabold text-petro-blue">Limousine</div>
-                        <div class="text-xs text-slate-500 font-semibold">Xe 29 Chỗ Đời Mới</div>
-                    </div>
-                    <div
-                        class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-petro-orange transition-all">
-                        <div class="text-emerald-600 text-2xl mb-1"><i class="fa-solid fa-hotel"></i></div>
-                        <div class="text-lg sm:text-xl font-extrabold text-petro-blue">Khách Sạn 4*</div>
-                        <div class="text-xs text-slate-500 font-semibold">Trung Tâm Thị Trấn</div>
-                    </div>
-                </div>
+                <p class="mt-6 text-center font-serifTitle text-xl font-bold text-petro-blue">Trân trọng và cảm ơn</p>
             </div>
 
             <!-- SECTION 2: VERTICAL TIMELINE -->
@@ -233,7 +219,71 @@
                     </p>
                 </div>
 
-                <div class="space-y-10">
+                <div id="itinerary-slider" class="relative">
+                    <article class="itinerary-slide is-active" data-slide="0">
+                        <div class="bg-petro-blue text-white p-4 rounded-xl shadow-md">
+                            <span class="text-petro-orange font-bold text-xs uppercase">Ngày 1</span>
+                            <h4 class="font-bold text-base sm:text-xl mt-1">NGÀY 1: TÂY NINH – TSN – NỘI BÀI – SAPA</h4>
+                        </div>
+                        <details class="group mt-4 overflow-hidden rounded-xl border border-petro-gold/40 bg-white/80 shadow-sm">
+                            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-bold text-petro-blue marker:content-none">
+                                <span><i class="fa-solid fa-circle-info mr-2 text-petro-orange"></i>Giới thiệu Ngày 1</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-petro-orange transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <p class="border-t border-petro-gold/25 px-5 py-4 text-xs sm:text-sm leading-relaxed text-slate-700">Đoàn khởi hành từ Tây Ninh đến sân bay Tân Sơn Nhất, đáp chuyến bay đi Nội Bài rồi tiếp tục di chuyển bằng xe Limousine lên Sapa. Sau khi nhận phòng, Quý khách dùng bữa tối và tự do khám phá thị trấn về đêm.</p>
+                        </details>
+                        <img src="thiep_moi_du_tiec/image/Building_01-1.jpg" alt="Hành trình Ngày 1" class="mt-4 w-full aspect-[16/8] object-cover rounded-xl border border-slate-200 shadow-sm">
+                    </article>
+
+                    <article class="itinerary-slide" data-slide="1">
+                        <div class="bg-petro-blue text-white p-4 rounded-xl shadow-md">
+                            <span class="text-petro-orange font-bold text-xs uppercase">Ngày 2</span>
+                            <h4 class="font-bold text-base sm:text-xl mt-1">NGÀY 2: CHINH PHỤC ĐỈNH FANSIPAN - NÓC NHÀ ĐÔNG DƯƠNG</h4>
+                        </div>
+                        <details class="group mt-4 overflow-hidden rounded-xl border border-petro-gold/40 bg-white/80 shadow-sm">
+                            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-bold text-petro-blue marker:content-none">
+                                <span><i class="fa-solid fa-circle-info mr-2 text-petro-orange"></i>Giới thiệu Ngày 2</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-petro-orange transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <p class="border-t border-petro-gold/25 px-5 py-4 text-xs sm:text-sm leading-relaxed text-slate-700">Sau bữa sáng, Quý khách trải nghiệm tàu hỏa Mường Hoa, cáp treo ba dây và tàu hỏa leo núi để chinh phục Fansipan cao 3.143m. Buổi chiều tự do tham quan, mua sắm và thưởng thức ẩm thực địa phương.</p>
+                        </details>
+                        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <img src="thiep_moi_du_tiec/image/Building_01-5.jpg" alt="Chinh phục Fansipan" class="w-full aspect-[4/3] object-cover rounded-xl border border-slate-200 shadow-sm">
+                            <img src="thiep_moi_du_tiec/image/Building_01-2.webp" alt="Cảnh sắc Fansipan" class="w-full aspect-[4/3] object-cover rounded-xl border border-slate-200 shadow-sm">
+                        </div>
+                    </article>
+
+                    <article class="itinerary-slide" data-slide="2">
+                        <div class="bg-petro-blue text-white p-4 rounded-xl shadow-md">
+                            <span class="text-petro-orange font-bold text-xs uppercase">Ngày 3</span>
+                            <h4 class="font-bold text-base sm:text-xl mt-1">NGÀY 3: KHÁM PHÁ BẢN CÁT CÁT & ĐÊM TIỆC GALA DINNER</h4>
+                        </div>
+                        <details class="group mt-4 overflow-hidden rounded-xl border border-petro-gold/40 bg-white/80 shadow-sm">
+                            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-bold text-petro-blue marker:content-none">
+                                <span><i class="fa-solid fa-circle-info mr-2 text-petro-orange"></i>Giới thiệu Ngày 3</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-petro-orange transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <p class="border-t border-petro-gold/25 px-5 py-4 text-xs sm:text-sm leading-relaxed text-slate-700">Quý khách tham quan Bản Cát Cát, tìm hiểu đời sống và nét văn hóa của người H'Mông. Buổi tối là Gala Dinner tri ân với không gian giao lưu, văn nghệ và những khoảnh khắc đáng nhớ cùng đoàn.</p>
+                        </details>
+                        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <img src="thiep_moi_du_tiec/image/Building_01-3.jpg" alt="Khám phá Bản Cát Cát" class="w-full aspect-[4/3] object-cover rounded-xl border border-slate-200 shadow-sm">
+                            <img src="thiep_moi_du_tiec/image/Building_01-4.webp" alt="Trải nghiệm tại Sapa" class="w-full aspect-[4/3] object-cover rounded-xl border border-slate-200 shadow-sm">
+                            <img src="thiep_moi_du_tiec/image/Building_01-6.jpg" alt="Đêm tiệc Gala Dinner" class="w-full aspect-[4/3] object-cover rounded-xl border border-slate-200 shadow-sm sm:col-span-2">
+                        </div>
+                    </article>
+
+                    <div class="mt-5 flex items-center justify-center gap-3">
+                        <button type="button" data-slider-direction="previous" aria-label="Lịch trình trước" class="w-10 h-10 rounded-full bg-petro-blue text-white hover:bg-petro-darkBlue transition-colors"><i class="fa-solid fa-arrow-left"></i></button>
+                        <div class="flex gap-2" aria-label="Chọn ngày">
+                            <button type="button" data-slider-index="0" aria-label="Ngày 1" class="slider-dot w-3 h-3 rounded-full bg-petro-orange"></button>
+                            <button type="button" data-slider-index="1" aria-label="Ngày 2" class="slider-dot w-3 h-3 rounded-full bg-slate-300"></button>
+                            <button type="button" data-slider-index="2" aria-label="Ngày 3" class="slider-dot w-3 h-3 rounded-full bg-slate-300"></button>
+                        </div>
+                        <button type="button" data-slider-direction="next" aria-label="Lịch trình tiếp theo" class="w-10 h-10 rounded-full bg-petro-blue text-white hover:bg-petro-darkBlue transition-colors"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="legacy-itinerary space-y-10" aria-hidden="true">
 
                     <!-- DAY 1 VERTICAL GROUP -->
                     <div>
@@ -700,8 +750,6 @@
     <footer class="bg-petro-navy text-slate-300 py-6 border-t border-petro-gold/40 text-center text-xs">
         <div class="max-w-4xl mx-auto px-4 space-y-1.5">
             <div class="flex items-center justify-center space-x-2 text-white font-bold text-xs sm:text-sm">
-                <span class="text-petro-orange">CÔNG TY XĂNG DẦU TÂY NINH</span>
-                <span>-</span>
                 <span class="text-petro-gold">CHI NHÁNH PETROLIMEX BẮC TÂY NINH</span>
             </div>
             <p class="text-slate-300 font-medium">Hành Trình Tri Ân Khách Hàng - Sapa Fansipan 2026</p>
@@ -724,6 +772,31 @@
                 icon.className = "fa-solid fa-chevron-down text-xs text-slate-400";
             }
         }
+
+        const itinerarySlides = document.querySelectorAll('.itinerary-slide');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        let activeSlide = 0;
+
+        function showItinerarySlide(index) {
+            activeSlide = (index + itinerarySlides.length) % itinerarySlides.length;
+            itinerarySlides.forEach((slide, slideIndex) => {
+                slide.classList.toggle('is-active', slideIndex === activeSlide);
+            });
+            sliderDots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('bg-petro-orange', dotIndex === activeSlide);
+                dot.classList.toggle('bg-slate-300', dotIndex !== activeSlide);
+            });
+        }
+
+        document.querySelectorAll('[data-slider-direction]').forEach((button) => {
+            button.addEventListener('click', () => {
+                showItinerarySlide(activeSlide + (button.dataset.sliderDirection === 'next' ? 1 : -1));
+            });
+        });
+
+        document.querySelectorAll('[data-slider-index]').forEach((button) => {
+            button.addEventListener('click', () => showItinerarySlide(Number(button.dataset.sliderIndex)));
+        });
     </script>
 </body>
 
